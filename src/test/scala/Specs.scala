@@ -1,10 +1,11 @@
 import net.iturrioz
-import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.FunSpec
 
-class Specs extends FunSpec with ShouldMatchers {
+import org.scalatest.{Matchers, FunSpec}
+
+class Specs extends FunSpec with Matchers {
   describe("a spec") {
     it("should do something") {
+
     }
   }
 }
