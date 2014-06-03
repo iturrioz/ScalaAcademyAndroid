@@ -35,4 +35,14 @@ object AndroidBuild extends Build {
     file("."),
     settings = General.fullAndroidSettings
   )
+
+  lazy val tests = Project (
+    "tests",
+    file("tests"),
+    settings = General.settings ++
+      AndroidTest.androidSettings ++
+      General.proguardSettings ++ Seq (
+      name := "ScalaAcademyAndroidTests"
+    )
+  ) dependsOn main
 }
