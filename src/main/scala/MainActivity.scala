@@ -1,12 +1,11 @@
 package net.iturrioz
 
 import android.app.Activity
-import android.os.Bundle
-import android.view.{MenuItem, Menu, View}
+import android.os.{AsyncTask, Bundle}
+import android.view.View
 import android.widget.TextView
-import android.content.Intent
 
-class MainActivity extends Activity with TypedActivity with MainActivity.Listeners {
+class MainActivity extends Activity with TypedActivity with MainActivity.Listeners with MenuOptions {
 
   override def onCreate(bundle: Bundle) {
     super.onCreate(bundle)
@@ -16,21 +15,26 @@ class MainActivity extends Activity with TypedActivity with MainActivity.Listene
 
     textview.setText("Hi")
     textview.setOnClickListener((v: View) => textview.setText("I'm still here"))
-  }
 
-  override def onCreateOptionsMenu(menu: Menu) = {
-    getMenuInflater().inflate(R.menu.main, menu)
-    true
-  }
 
-  override def onOptionsItemSelected(item: MenuItem) = {
-    item.getItemId match {
-      case R.id.item1 =>
-        startActivity(new Intent(this, classOf[MainActivity]))
-      case R.id.item2 =>
-        startActivity(new Intent(this, classOf[SecondActivity]))
+    findView(TR.button).setOnClickListener{view: View =>
+      new AsyncTask[Unit, Unit, Unit]() {
+        override def doInBackground(p1: Unit*) {
+          blockingMethod()
+        }
+        override def onPostExecute(p: Unit) {
+          afterBlockingCode()
+        }
+      }.execute().get()
     }
-    true
+  }
+
+  def blockingMethod() {
+    // Blocking code
+  }
+
+  def afterBlockingCode() {
+    // After code
   }
 }
 

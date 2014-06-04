@@ -4,7 +4,7 @@ import android.app.ListActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 
-class SecondActivity extends ListActivity {
+class SecondActivity extends ListActivity with MenuOptions {
 
   override def onCreate(bundle: Bundle) {
     super.onCreate(bundle)
