@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.{AsyncTask, Bundle}
 import android.view.View
 import android.widget.TextView
+import scala.concurrent._
 
 class MainActivity extends Activity with TypedActivity with MainActivity.Listeners with MenuOptions {
 
@@ -18,14 +19,23 @@ class MainActivity extends Activity with TypedActivity with MainActivity.Listene
 
 
     findView(TR.button).setOnClickListener{view: View =>
-      new AsyncTask[Unit, Unit, Unit]() {
-        override def doInBackground(p1: Unit*) {
-          blockingMethod()
-        }
-        override def onPostExecute(p: Unit) {
-          afterBlockingCode()
-        }
-      }.execute().get()
+      val task = future {
+        blockingMethod()
+      }
+      task onFailure { case t =>
+        runOnUiThread(new Runnable {
+          override def run() {
+            textview.setText(t.getMessage)
+          }
+        })
+      }
+      task onComplete { value =>
+        runOnUiThread(new Runnable {
+          override def run() {
+            afterBlockingCode()
+          }
+        })
+      }
     }
   }
 
