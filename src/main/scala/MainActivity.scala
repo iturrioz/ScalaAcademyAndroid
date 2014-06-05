@@ -1,10 +1,12 @@
 package net.iturrioz
 
 import android.app.Activity
-import android.os.{AsyncTask, Bundle}
+import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import scala.concurrent._
+
+import ExecutionContext.Implicits.global
 
 class MainActivity extends Activity with TypedActivity with MainActivity.Listeners with MenuOptions {
 
