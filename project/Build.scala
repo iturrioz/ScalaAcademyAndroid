@@ -8,7 +8,7 @@ object General {
     name := "ScalaAcademyAndroid",
     version := "0.1",
     versionCode := 0,
-    scalaVersion := "2.10.1",
+    scalaVersion := "2.9.3",
     platformName in Android := "android-19",
     javacOptions ++= Seq("-encoding", "UTF-8", "-source", "1.6", "-target", "1.6")
   )
@@ -25,7 +25,7 @@ object General {
     AndroidManifestGenerator.settings ++
     AndroidMarketPublish.settings ++ Seq (
       keyalias in Android := "change-me",
-      libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.7" % "test"
+      libraryDependencies += "org.scalatest" %% "scalatest" % "1.9.1" % "test"
     )
 }
 
