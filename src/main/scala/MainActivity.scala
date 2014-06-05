@@ -34,19 +34,21 @@ class MainActivity extends Activity with TypedActivity with MainActivity.Listene
       task onComplete { value =>
         runOnUiThread(new Runnable {
           override def run() {
-            afterBlockingCode()
+            value.foreach(afterBlockingCode)
           }
         })
       }
     }
   }
 
-  def blockingMethod() {
+  def blockingMethod() = {
     // Blocking code
+    "Downloaded text"
   }
 
-  def afterBlockingCode() {
+  def afterBlockingCode(value: String) {
     // After code
+    findView(TR.textview).setText(value)
   }
 }
 
